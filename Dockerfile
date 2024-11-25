@@ -32,7 +32,7 @@ RUN apk add tzdata && echo "Europe/Moscow" > /etc/timezone && ln -s /usr/share/z
 #
 
 # Копируем файл конфигурации в контейнер
-COPY ./prod.yaml .
+COPY . .
 
 # Открываем порты
 EXPOSE ${PORT}
