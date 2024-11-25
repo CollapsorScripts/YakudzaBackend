@@ -4,3 +4,5 @@ Makefile
 config/local.yaml
 *.exe
 tests
+*.crt
+*.key
