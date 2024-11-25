@@ -1,4 +1,4 @@
-env: "local" #Окружение
+env: "prod" #Окружение
 server:
   port: 443
   timeout: 30m
@@ -14,3 +14,4 @@ jwt:
 paths:
   logDir: "./log"
   logName: "gateway.log"
+swagger: true

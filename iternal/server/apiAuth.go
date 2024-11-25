@@ -19,6 +19,19 @@ type LoginResponse struct {
 	Token string `json:"token"`
 }
 
+// Login godoc
+// @Summary      Авторизация
+// @Description  Авторизация пользователя
+// @Tags         Authentication
+// @Accept       json
+// @Produce      json
+// @Param        user body LoginRequest true "Данные для авторизации пользователя"
+// @Success      200  {object}  LoginResponse
+// @Failure      400  {object}  HTTPError
+// @Failure      401  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /auth/login [post]
 func (route Router) Login(w http.ResponseWriter, r *http.Request) {
 	request := new(LoginRequest)
 

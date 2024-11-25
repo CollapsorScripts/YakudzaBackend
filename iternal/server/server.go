@@ -1,10 +1,12 @@
 package server
 
 import (
+	_ "Yakudza/docs"
 	"Yakudza/pkg/config"
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
+	httpSwagger "github.com/swaggo/http-swagger"
 	"net/http"
 	"sync"
 )
@@ -50,6 +52,18 @@ func (route *Router) loadEndpoints() *http.Server {
 		linksRoute.HandleFunc("/{id:[0-9]+}", route.GetLink).Methods(http.MethodGet, http.MethodOptions)
 		linksRoute.HandleFunc("/{id:[0-9]+}", route.UpdateLink).Methods(http.MethodPut, http.MethodOptions)
 		linksRoute.HandleFunc("/{id:[0-9]+}", route.DeleteLinkByID).Methods(http.MethodDelete, http.MethodOptions)
+	}
+
+	//Swagger
+	{
+		if route.cfg.Swagger {
+			route.r.PathPrefix("/Hexz4PMQxTR6MdY8Sq99catGPUAt25BralwnfMyRnBYEm7tkf0mzA1vxi3BnGCnv/").Handler(httpSwagger.Handler(
+				httpSwagger.URL("/Hexz4PMQxTR6MdY8Sq99catGPUAt25BralwnfMyRnBYEm7tkf0mzA1vxi3BnGCnv/doc.json"), //The url pointing to API definition
+				httpSwagger.DeepLinking(true),
+				httpSwagger.DocExpansion("none"),
+				httpSwagger.DomID("swagger-ui"),
+			)).Methods(http.MethodGet)
+		}
 	}
 
 	route.r.Use(cors.Default().Handler, mux.CORSMethodMiddleware(route.r))

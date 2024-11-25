@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "Yakudza/docs"
 	"Yakudza/iternal/migrator"
 	"Yakudza/iternal/server"
 	"Yakudza/pkg/config"
@@ -48,8 +49,19 @@ func main() {
 		// Запуск сервера в отдельном потоке
 		go func() {
 			logger.Info("Сервер запущен на адресе: %s", srv.Addr)
-			if err := srv.ListenAndServeTLS("cert.crt", "key.key"); err != nil {
-				logger.Error("Ошибка при прослушивании сервера: %v", err)
+			switch cfg.Env {
+			case "local":
+				{
+					if err := srv.ListenAndServe(); err != nil {
+						logger.Error("Ошибка при прослушивании сервера: %v", err)
+					}
+				}
+			case "prod":
+				{
+					if err := srv.ListenAndServeTLS("cert.crt", "key.key"); err != nil {
+						logger.Error("Ошибка при прослушивании сервера: %v", err)
+					}
+				}
 			}
 		}()
 

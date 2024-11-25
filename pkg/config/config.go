@@ -42,6 +42,7 @@ type Config struct {
 	Database *Database `yaml:"database"`
 	JWT      *JWT      `yaml:"jwt"`
 	Paths    *Paths    `yaml:"paths"`
+	Swagger  bool      `yaml:"swagger"`
 }
 
 // MustLoad - загружает конфигурацию

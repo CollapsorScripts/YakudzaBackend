@@ -10,7 +10,18 @@ import (
 	"sort"
 )
 
-// GetLinks - список всех ссылок
+// GetLinks godoc
+// @Summary      Список всех ссылок
+// @Description  Массив с ссылками в базе данных
+// @Tags         Links
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Success      200  {array}  models.Links
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /links [get]
 func (route Router) GetLinks(w http.ResponseWriter, r *http.Request) {
 	links, err := models.AllLinks()
 	if err != nil {
@@ -31,7 +42,19 @@ func (route Router) GetLinks(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// GetLink - получение ссылки по ID
+// GetLink godoc
+// @Summary      Поиск ссылки
+// @Description  Поиск ссылки по ID
+// @Tags         Links
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        id   path      int  true  "Link ID"
+// @Success      200  {object}  models.Links
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /links/{id} [get]
 func (route Router) GetLink(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)["id"]
 	id := utilities.StrToUint(vars)
@@ -61,7 +84,19 @@ func (route Router) GetLink(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// CreateLink - создание новой ссылки
+// CreateLink godoc
+// @Summary      Создание ссылки
+// @Description  Создание новой сущности ссылки
+// @Tags         Links
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        link body models.Links false "Сущность ссылки"
+// @Success      200  {object}  models.Links
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /links [post]
 func (route Router) CreateLink(w http.ResponseWriter, r *http.Request) {
 	newLink := new(models.Links)
 
@@ -82,7 +117,19 @@ func (route Router) CreateLink(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// DeleteLinkByID - удаление ссылки по ID
+// DeleteLinkByID godoc
+// @Summary      Удаление ссылки
+// @Description  Удаление ссылки по ID
+// @Tags         Links
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        id   path      int  true  "ID ссылки"
+// @Success      200              {string}  string    "ok"
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /links/{id} [delete]
 func (route Router) DeleteLinkByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)["id"]
 	id := utilities.StrToUint(vars)
@@ -101,7 +148,20 @@ func (route Router) DeleteLinkByID(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-// UpdateLink - обновление ссылки
+// UpdateLink godoc
+// @Summary      Обновление ссылки
+// @Description  Обновление сущности ссылки
+// @Tags         Links
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        id path int true "ID ссылки"
+// @Param        link body models.Links true "Модель для обновления"
+// @Success      200  {object}  models.Links
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /links/{id} [put]
 func (route Router) UpdateLink(w http.ResponseWriter, r *http.Request) {
 	id := utilities.StrToUint(mux.Vars(r)["id"])
 

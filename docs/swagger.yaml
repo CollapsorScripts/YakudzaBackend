@@ -1,0 +1,255 @@
+definitions:
+  models.Links:
+    properties:
+      id:
+        type: integer
+      link:
+        type: string
+      position:
+        type: integer
+      title:
+        type: string
+    type: object
+  server.HTTPError:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  server.LoginRequest:
+    properties:
+      login:
+        type: string
+      password:
+        type: string
+    type: object
+  server.LoginResponse:
+    properties:
+      token:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: Сервер маршрутизации
+  title: API Gateway
+  version: "1.0"
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Авторизация пользователя
+      parameters:
+      - description: Данные для авторизации пользователя
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/server.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/server.LoginResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Авторизация
+      tags:
+      - Authentication
+  /links:
+    get:
+      consumes:
+      - application/json
+      description: Массив с ссылками в базе данных
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Links'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
+      summary: Список всех ссылок
+      tags:
+      - Links
+    post:
+      consumes:
+      - application/json
+      description: Создание новой сущности ссылки
+      parameters:
+      - description: Сущность ссылки
+        in: body
+        name: link
+        schema:
+          $ref: '#/definitions/models.Links'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Links'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
+      summary: Создание ссылки
+      tags:
+      - Links
+  /links/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удаление ссылки по ID
+      parameters:
+      - description: ID ссылки
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
+      summary: Удаление ссылки
+      tags:
+      - Links
+    get:
+      consumes:
+      - application/json
+      description: Поиск ссылки по ID
+      parameters:
+      - description: Link ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Links'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
+      summary: Поиск ссылки
+      tags:
+      - Links
+    put:
+      consumes:
+      - application/json
+      description: Обновление сущности ссылки
+      parameters:
+      - description: ID ссылки
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Модель для обновления
+        in: body
+        name: link
+        required: true
+        schema:
+          $ref: '#/definitions/models.Links'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Links'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
+      summary: Обновление ссылки
+      tags:
+      - Links
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
