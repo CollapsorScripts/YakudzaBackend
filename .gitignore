@@ -1,0 +1,6 @@
+.idea
+log
+Makefile
+config/local.yaml
+*.exe
+tests

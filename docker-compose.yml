@@ -1,0 +1,12 @@
+services:
+  apigateway_server:
+    container_name: apigateway_server
+    hostname: apigateway_server
+    build: .
+    restart: always
+    ports:
+      - 443:443
+    command: [
+        "/app/apigateway",
+        "--config=prod.yaml"
+    ]

@@ -1,0 +1,16 @@
+env: "local" #Окружение
+server:
+  port: 443
+  timeout: 30m
+database:
+  host: "localhost"
+  port: 3050
+  user: "user"
+  password: "password"
+  name: "postgres"
+jwt:
+  secret: 'test_secret_key'
+  timeout: 12h
+paths:
+  logDir: "./log"
+  logName: "gateway.log"
