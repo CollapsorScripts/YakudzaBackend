@@ -48,7 +48,7 @@ func main() {
 		// Запуск сервера в отдельном потоке
 		go func() {
 			logger.Info("Сервер запущен на адресе: %s", srv.Addr)
-			if err := srv.ListenAndServeTLS("./cert.crt", "./key.key"); err != nil {
+			if err := srv.ListenAndServeTLS("cert.crt", "key.key"); err != nil {
 				logger.Error("Ошибка при прослушивании сервера: %v", err)
 			}
 		}()
