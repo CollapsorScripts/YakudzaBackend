@@ -16,7 +16,6 @@ import (
 // @Tags         Links
 // @Accept       json
 // @Produce      json
-// @Security     BearerAuth
 // @Success      200  {array}  models.Links
 // @Failure      400  {object}  HTTPError
 // @Failure      404  {object}  HTTPError

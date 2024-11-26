@@ -99,8 +99,6 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
-      security:
-      - BearerAuth: []
       summary: Список всех ссылок
       tags:
       - Links

@@ -39,6 +39,8 @@ func (route *Router) loadEndpoints() *http.Server {
 	//Эндпоинты links
 	linksRoute := route.r.PathPrefix("/links").Subrouter()
 	linksRoute.Use(cors.Default().Handler, route.authMiddleware)
+	publicLinks := route.r.PathPrefix("/links").Subrouter()
+	publicLinks.Use(cors.Default().Handler, route.publicMiddleware)
 
 	//Аутентификация
 	{
@@ -47,7 +49,7 @@ func (route *Router) loadEndpoints() *http.Server {
 
 	//Линки
 	{
-		linksRoute.HandleFunc("", route.GetLinks).Methods(http.MethodGet, http.MethodOptions)
+		publicLinks.HandleFunc("", route.GetLinks).Methods(http.MethodGet, http.MethodOptions)
 		linksRoute.HandleFunc("", route.CreateLink).Methods(http.MethodPost, http.MethodOptions)
 		linksRoute.HandleFunc("/{id:[0-9]+}", route.GetLink).Methods(http.MethodGet, http.MethodOptions)
 		linksRoute.HandleFunc("/{id:[0-9]+}", route.UpdateLink).Methods(http.MethodPut, http.MethodOptions)

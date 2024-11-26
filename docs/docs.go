@@ -75,11 +75,6 @@ const docTemplate = `{
         },
         "/links": {
             "get": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
                 "description": "Массив с ссылками в базе данных",
                 "consumes": [
                     "application/json"
