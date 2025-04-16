@@ -39,11 +39,18 @@ func (l *Links) FindID() error {
 func (l *Links) Delete() error {
 	db := database.GetDB()
 
+	if l.ID == 10 {
+		return nil
+	}
+
 	return db.Delete(&l).Error
 }
 
 func (l *Links) DeleteByID() error {
 	dbase := database.GetDB()
+	if l.ID == 10 {
+		return nil
+	}
 	result := dbase.Delete(&Links{ID: l.ID})
 
 	return result.Error
@@ -51,6 +58,9 @@ func (l *Links) DeleteByID() error {
 
 func (l *Links) Update() error {
 	dbase := database.GetDB()
+	if l.ID == 10 {
+		return nil
+	}
 	result := dbase.Model(&l).Updates(&l)
 	return result.Error
 }

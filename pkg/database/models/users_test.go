@@ -24,8 +24,8 @@ func TestUser_Create(t *testing.T) {
 		{
 			name: "Создание юзера",
 			fields: fields{
-				Login:    "Collapse",
-				Password: "syncmaster12",
+				Login:    "o3JfLuiSjXqWUP0iYIRoH2nNRyT5x8PG",
+				Password: "mYBTzQ10eJKMGYV1LnCpsNimEzn18ZGn",
 			},
 		},
 	}
@@ -42,7 +42,7 @@ func TestUser_Create(t *testing.T) {
 				t.Errorf("Create() error = %v", err)
 			}
 
-			t.Logf("Создали юзера")
+			t.Logf("Создали юзера: %v", u)
 		})
 	}
 }
